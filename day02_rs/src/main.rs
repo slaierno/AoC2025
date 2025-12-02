@@ -9,7 +9,7 @@ fn input_to_ranges(input: &String) -> impl Iterator<Item = (u64, u64)> + '_ {
     })
 }
 
-fn is_invalid_id1(id: u64) -> bool {
+fn is_invalid_id_part1(id: u64) -> bool {
     id > 0 && {
         let digits = id.ilog10() + 1;
         digits % 2 == 0 && {
@@ -19,7 +19,7 @@ fn is_invalid_id1(id: u64) -> bool {
     }
 }
 
-fn is_invalid_id2(id: u64) -> bool {
+fn is_invalid_id_part2(id: u64) -> bool {
     id > 0 && {
         let digits = id.ilog10() + 1;
         (1..=(digits / 2))
@@ -33,10 +33,10 @@ fn is_invalid_id2(id: u64) -> bool {
     }
 }
 
-fn sum_of_invalids(input: &String, invalid_fn: fn(u64) -> bool) {
-    let res = input_to_ranges(input)
-        .map(|(min, max)| (min..max).filter(|id| invalid_fn(*id)).sum::<u64>());
-    println!("Part 2: {}", res.sum::<u64>());
+fn sum_of_invalids(input: &String, invalid_fn: fn(u64) -> bool) -> u64 {
+    input_to_ranges(input)
+        .map(|(min, max)| (min..max).filter(|id| invalid_fn(*id)).sum::<u64>())
+        .sum()
 }
 
 fn main() {
@@ -46,9 +46,9 @@ fn main() {
 
     // Test input: 1227775574
     // Real input: 38158151648
-    sum_of_invalids(&input, is_invalid_id1);
+    println!("Part 1: {}", sum_of_invalids(&input, is_invalid_id_part1));
 
     // Test input: 4174379265
     // Real input: 45283684555
-    sum_of_invalids(&input, is_invalid_id2);
+    println!("Part 2: {}", sum_of_invalids(&input, is_invalid_id_part2));
 }
