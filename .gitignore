@@ -39,3 +39,13 @@
 
 # debug information files
 *.dwo
+
+# Rust specific
+**/target/
+
+# C++ specific
+**/part01
+**/part02
+
+# VS Code specific
+.vscode/
