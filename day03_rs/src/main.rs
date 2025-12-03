@@ -10,7 +10,7 @@ fn best_n_digits_value(line: Vec<u64>, n_of_digits: usize) -> u64 {
         // and let them be replaced in the next iteration with the following digits of the line
         for digit in (0..n_of_digits).rev() {
             if idx >= n_of_digits - digit - 1 // Nth result digit can't be any of the first (N-<max result digits>-1) line digits
-                && idx <= line.len() - digit - 1 // Nth result digit can't be any of the last N-1 line digits
+                && idx < line.len() - digit // Nth result digit can't be any of the last N-1 line digits
                 && n > best_digits[digit]
             {
                 best_digits[digit] = n;
@@ -26,7 +26,7 @@ fn best_n_digits_value(line: Vec<u64>, n_of_digits: usize) -> u64 {
         .sum()
 }
 
-fn sum_of_best(input: &String, n_of_digits: usize) -> u64 {
+fn sum_of_best(input: &str, n_of_digits: usize) -> u64 {
     input
         .lines()
         .map(|line| {

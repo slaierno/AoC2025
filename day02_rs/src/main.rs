@@ -1,6 +1,6 @@
 use itertools::Itertools;
 
-fn input_to_ranges(input: &String) -> impl Iterator<Item = (u64, u64)> + '_ {
+fn input_to_ranges(input: &str) -> impl Iterator<Item = (u64, u64)> + '_ {
     input.split(',').map(|s| {
         s.split('-')
             .map(|s| s.parse::<u64>().unwrap())
@@ -33,7 +33,7 @@ fn is_invalid_id_part2(id: u64) -> bool {
     }
 }
 
-fn sum_of_invalids(input: &String, invalid_fn: fn(u64) -> bool) -> u64 {
+fn sum_of_invalids(input: &str, invalid_fn: fn(u64) -> bool) -> u64 {
     input_to_ranges(input)
         .map(|(min, max)| (min..max).filter(|id| invalid_fn(*id)).sum::<u64>())
         .sum()

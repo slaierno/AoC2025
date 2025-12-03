@@ -1,7 +1,7 @@
 const MAX_DIAL: i64 = 99;
 const START_DIAL: i64 = 50;
 
-fn input_to_instructions(input: &String) -> impl Iterator<Item = i64> + '_ {
+fn input_to_instructions(input: &str) -> impl Iterator<Item = i64> + '_ {
     input
         .lines()
         .map(|line| (if &line[..1] == "R" { 1 } else { -1 }) * line[1..].parse::<i64>().unwrap())
@@ -43,7 +43,7 @@ fn rotate(from: i64, rotation: i64) -> (u64, i64) {
 
 fn part1(instructions: &mut impl Iterator<Item = i64>) -> u64 {
     instructions
-        .fold((START_DIAL, 0 as u64), |(pos, zeros), instr| {
+        .fold((START_DIAL, 0u64), |(pos, zeros), instr| {
             let new_pos = rotate_v1(pos, instr);
             (new_pos, zeros + ((new_pos == 0) as u64))
         })
@@ -51,9 +51,9 @@ fn part1(instructions: &mut impl Iterator<Item = i64>) -> u64 {
 }
 fn part2(instructions: &mut impl Iterator<Item = i64>) -> u64 {
     instructions
-        .fold((START_DIAL, 0 as u64), |(pos, zeros), instr| {
+        .fold((START_DIAL, 0u64), |(pos, zeros), instr| {
             let (passed_zeros, new_pos) = rotate(pos, instr);
-            (new_pos, zeros + passed_zeros as u64)
+            (new_pos, zeros + passed_zeros)
         })
         .1
 }
